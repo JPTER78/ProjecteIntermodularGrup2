@@ -1,0 +1,136 @@
+package application;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+
+public class Registre extends Application {
+
+    private TextField txtNom, txtCognoms, txtEmail, txtContrasenya, txtContrasenya2, txtPoblacio;
+    private DatePicker datePicker;
+    private Label lblError;
+
+    @Override
+    public void start(Stage primaryStage) {
+        // Crear campos de entrada
+        txtNom = new TextField();
+        txtCognoms = new TextField();
+        txtEmail = new TextField();
+        txtContrasenya = new PasswordField();
+        txtContrasenya2 = new PasswordField();
+        txtPoblacio = new TextField();
+        datePicker = new DatePicker();
+
+        // Crear etiquetas
+        Label lblNom = new Label("Nom:");
+        Label lblCognoms = new Label("Cognoms:");
+        Label lblEmail = new Label("Correu electrònic:");
+        Label lblContrasenya = new Label("Contrasenya:");
+        Label lblContrasenya2 = new Label("Repeteix contrasenya:");
+        Label lblPoblacio = new Label("Població:");
+        Label lblDataNaixement = new Label("Data de naixement:");
+        Label lblCicle = new Label("Cicle formatiu:");
+
+        // Botones
+        Button btnTancar = new Button("Tancar");
+        Button btnEsborrar = new Button("Esborrar");
+        Button btnGuardar = new Button("Guardar");
+
+        // Manejo de eventos
+        btnTancar.setOnAction(e -> primaryStage.close());
+        btnEsborrar.setOnAction(e -> esborrarFormulari());
+        btnGuardar.setOnAction(e -> guardarFormulari());
+
+        // Layout
+        GridPane grid = new GridPane();
+        grid.setVgap(10);
+        grid.setHgap(10);
+        grid.addRow(0, lblNom, txtNom);
+        grid.addRow(1, lblCognoms, txtCognoms);
+        grid.addRow(2, lblEmail, txtEmail);
+        grid.addRow(3, lblContrasenya, txtContrasenya);
+        grid.addRow(4, lblContrasenya2, txtContrasenya2);
+        grid.addRow(5, lblPoblacio, txtPoblacio);
+        grid.addRow(6, lblDataNaixement, datePicker);
+
+        // Error label
+        lblError = new Label();
+        lblError.setStyle("-fx-text-fill: red;");
+
+        // Botones
+        HBox btnBox = new HBox(10, btnTancar, btnEsborrar, btnGuardar);
+        btnBox.setStyle("-fx-padding: 10px;");
+        btnBox.setAlignment(javafx.geometry.Pos.CENTER);
+
+        // Main layout
+        VBox mainLayout = new VBox(10, grid, lblError, btnBox);
+        mainLayout.setStyle("-fx-padding: 10px;");
+
+        Scene scene = new Scene(mainLayout, 400, 350);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Formulari de Dades");
+        primaryStage.show();
+    }
+
+    private void esborrarFormulari() {
+        txtNom.clear();
+        txtCognoms.clear();
+        txtEmail.clear();
+        txtContrasenya.clear();
+        txtContrasenya2.clear();
+        txtPoblacio.clear();
+        datePicker.setValue(null);
+        lblError.setText("");
+    }
+
+    private void guardarFormulari() {
+        String nom = txtNom.getText().trim();
+        String cognoms = txtCognoms.getText().trim();
+        String email = txtEmail.getText().trim();
+        String contrasenya = txtContrasenya.getText().trim();
+        String contrasenya2 = txtContrasenya2.getText().trim();
+        String poblacio = txtPoblacio.getText().trim();
+        LocalDate dataNaixement = datePicker.getValue();
+
+        if (nom.isEmpty() || cognoms.isEmpty() || email.isEmpty() || contrasenya.isEmpty() || contrasenya2.isEmpty() || poblacio.isEmpty() || dataNaixement == null) {
+            lblError.setText("Tots els camps són obligatoris");
+        } else if (!email.matches("^[a-z0-9]+@[a-z]+\\.[a-z]+$")) {
+        	lblError.setText("El format del correu electrònic no es vàlid");
+        } else if (!contrasenya.toString().equals(contrasenya2.toString())) {
+        	lblError.setText("Les contrasenyes no son iguals");
+        } else if (!contrasenya.matches(".*[a-z].*[a-z].*")) {
+        	lblError.setText("La contrasenya ha de tindre al menys 2 minúscules");
+        } else if (!contrasenya.matches(".*[A-Z].*[A-Z].*")) {
+        	lblError.setText("La contrasenya ha de tindre al menys 2 majúscules");
+        } else if (!contrasenya.matches(".*\\d.*\\d.*")) {
+        	lblError.setText("La contrasenya ha de tindre al menys 2 digits");
+        } else {
+            String fitxer = "dades.txt";
+            String contingut = nom + "::" + cognoms + "::" + email + "::" + poblacio + "::" + dataNaixement.toString();
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fitxer, true))) {
+                writer.write(contingut);
+                writer.newLine();
+                writer.close();
+                esborrarFormulari();
+                lblError.setText("Dades guardades correctament en el fitxer");
+            } catch (IOException e) {
+                lblError.setText("Error en guardar les dades al fitxer");
+            }
+        }
+    }
+    
+    public static void canviRegistre(Stage primaryStage) {
+    	main(primaryStage);
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
