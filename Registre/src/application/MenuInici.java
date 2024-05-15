@@ -6,12 +6,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-
 public class MenuInici extends Application {
 
     @Override
@@ -23,10 +17,12 @@ public class MenuInici extends Application {
         // Botones
         Button btnTancar = new Button("Tancar");
         Button btnRegistre = new Button("Registre");
+        Button btnLogin = new Button("Login");
 
         // Manejo de eventos
         btnTancar.setOnAction(e -> primaryStage.close());
         btnRegistre.setOnAction(e -> carregarRegistre());
+        btnLogin.setOnAction(e -> carregarLogin());
 
         // Layout
         GridPane grid = new GridPane();
@@ -35,7 +31,7 @@ public class MenuInici extends Application {
         grid.addRow(0, lblInici);
 
         // Botones
-        HBox btnBox = new HBox(10, btnTancar, btnRegistre);
+        HBox btnBox = new HBox(10, btnTancar, btnRegistre, btnLogin);
         btnBox.setStyle("-fx-padding: 10px;");
         btnBox.setAlignment(javafx.geometry.Pos.CENTER);
 
@@ -45,12 +41,16 @@ public class MenuInici extends Application {
 
         Scene scene = new Scene(mainLayout, 400, 350);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Formulari de Dades");
+        primaryStage.setTitle("Movie Rater");
         primaryStage.show();
     }
     
     public void carregarRegistre() {
     	System.out.println("Entrar registre");
+    }
+    
+    public void carregarLogin() {
+    	System.out.println("Entrar login");
     }
 
     public static void main(String[] args) {

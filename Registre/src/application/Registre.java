@@ -5,14 +5,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDate;
 
 public class Registre extends Application {
 
@@ -39,7 +35,6 @@ public class Registre extends Application {
         Label lblContrasenya2 = new Label("Repeteix contrasenya:");
         Label lblPoblacio = new Label("Població:");
         Label lblDataNaixement = new Label("Data de naixement:");
-        Label lblCicle = new Label("Cicle formatiu:");
 
         // Botones
         Button btnTancar = new Button("Tancar");
@@ -81,7 +76,7 @@ public class Registre extends Application {
         primaryStage.setTitle("Registre");
         primaryStage.show();
     }
-
+    
     private void esborrarFormulari() {
         txtNom.clear();
         txtCognoms.clear();
@@ -102,6 +97,7 @@ public class Registre extends Application {
         String poblacioUsuari = txtPoblacio.getText().trim();
         String dataNaixementUsuari = datePicker.getValue().toString();
 
+		lblError.setStyle("-fx-text-fill: red;");
         if (nomUsuari.isEmpty() || cognomsUsuari.isEmpty() || emailUsuari.isEmpty() || contrasenyaUsuari.isEmpty() || contrasenyaUsuari2.isEmpty() || poblacioUsuari.isEmpty() || dataNaixementUsuari == null) {
             lblError.setText("Tots els camps són obligatoris");
         } else if (!emailUsuari.matches("^[a-z0-9]+@[a-z]+\\.[a-z]+$")) {
@@ -127,11 +123,12 @@ public class Registre extends Application {
             	Connection c = DriverManager.getConnection(urlBaseDades , usuari, contrasenya);
     			Statement s = c.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
     			s.executeUpdate("INSERT INTO Usuari (Nom, Email, Contrasenya, DataNaixement, Poblacio, Cognom, Rol) VALUES ('" + nomUsuari + "', '" + emailUsuari + "', '" + contrasenyaUsuari + "', '" + dataNaixementUsuari + "', '" + poblacioUsuari + "', '" + cognomsUsuari + "', 'ROL_USUARI')");
-            	lblError.setStyle("-fx-text-fill: green;");
+    			s.executeUpdate("UPDATE `Usuari` SET `IDUsuari`='1',`Nom`='Jorge',`Email`='pito@gmail.com',`Contrasenya`='holahola',`DataNaixement`='1999-3-12',`Poblacio`='Carcaixent',`ImatgePerfil`='',`Cognom`='Gosa',`Rol`='usuari' WHERE 1");
+    			lblError.setStyle("-fx-text-fill: green;");
             	lblError.setText("Dades guardades correctament a la base de dades");
 			} catch (Exception e) {
 				lblError.setStyle("-fx-text-fill: red;");
-            	lblError.setText("Ha ocurrit un error");
+            	lblError.setText("Ha ocurrit un error, avisa al programador xd");
 			}
         }
     }
