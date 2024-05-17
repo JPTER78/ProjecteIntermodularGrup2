@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificación</title>
+    <link rel="stylesheet" href="Modificacion.css"/>
+	<script type="text/javascript" src="Modificacion.js"></script>
+</head>
+<body>
+    <form method="post" class="form" name="form" onsubmit="validarCorreo()">
+        <h2 id="Titulo">Selecciona una Acción</h2>
+        <div class="container" id="Crear">
+            <input type="text" name="Nom" class="text" placeholder="*Nom" required>
+            <input type="text" name="Cognoms" class="text" placeholder="*Cognoms" required>
+            <input type="email" name="Email" class="text" placeholder="*Email" required>
+            <input type="password" name="Pass" class="text" placeholder="*Contraseña" required>
+            <input type="text" name="DataNaiximent" class="text" placeholder="*Data de naiximent"
+                onfocus="(this.type='date')" onblur="(this.type='text')" required>
+            <input type="text" name="Poblacio" class="text" placeholder="*Poblacio" required>
+            <input type="file" name="Imatge" value="Avatar" accept="image/png, image/jpeg">
+            <select name="Rol" id="Rol" required>
+                <option name="User" value="User">Usuari</option>
+                <option name="Admin" value="Admin">Admin</option>
+            </select>
+            <input type="submit" value="Enviar" class="button">
+        </div>
+
+        <div class="container" id="Modificar">
+            <!-- Script necesario para el la funcion KeyUp -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+            <input type="text" class="text" id="IDUsuari" placeholder="*IDUsuari" required>
+            <!-- Mostrar los datos del usuario en los input cuando el IDUsuari se pone -->
+            
+            <div class="container" id="IDContainer">
+                <input type="text" name="Nom" class="text" placeholder="*Nom" required>
+                <input type="text" name="Cognoms" class="text" placeholder="*Cognoms" required>
+                <input type="email" name="Email" class="text" placeholder="*Email" required>
+                <input type="password" name="Pass" class="text" placeholder="*Contraseña" required>
+                <input type="text" name="DataNaiximent" class="text" placeholder="*Data de naiximent" 
+                    onfocus="(this.type='date')" onblur="(this.type='text')" required>
+                <input type="text" name="Poblacio" class="text" placeholder="*Poblacio" required>
+                <input type="file" name="Imatge" value="Imatge" accept="image/png, image/jpeg" required>
+                <select name="Rol" id="Rol" required>
+                    <option name="User" value="ROL_USUARI">Usuari</option>
+                    <option name="Admin" value="ROL_ADMIN">Admin</option>
+                </select>
+            <input type="submit" value="Enviar" class="button">
+            </div>
+        </div>
+
+        <div class="container" id="Eliminar">
+            <input type="text" class="text" placeholder="*IDUsuari" required>
+            <!-- Mostrar el usuario antes de borrarlo -->
+
+            <input type="submit" value="Borrar" class="button" onclick="mostraUsuari()">
+            <div id="div"></div>
+        </div>
+        
+        <div class="container" id="div_botton">
+            <input type="button" value="Crear" class="button" onclick="crearUsuari()">
+            <input type="button" value="Modificar" class="button" onclick="modificarUsuari()">
+            <input type="button" value="Eliminar" class="button" onclick="borrarUsuari()">
+        </div>
+    </form> 
+</body>
+</html>

@@ -1,0 +1,80 @@
+/* @font-face {
+    font-family: 'Quantico';
+    font-style: normal;
+    src: url(Fuente/Quantico-BoldItalic.ttf);
+} */
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    background-image: linear-gradient(to left bottom, #6ad5ff, #44caf3, #1ea4e3, #1aa8d3, #26acca);
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    /* font-family: "Quantico"; */
+}
+
+.form {
+    background-color: white;
+    width: 90%;
+    margin: auto;
+    max-width: 400px;
+    border-radius: 1em;
+    border: 1px solid black;
+    padding: 2em 1.5em;
+    box-shadow: 7px 13px 37px rgba(0, 0, 0, 0.8);
+}
+
+.container{
+    width: 100%;
+    display: grid;
+    gap: 15px;
+    grid-auto-columns: 100%;
+}
+
+.titulo{
+    text-align: center;
+    font-size: 1.9rem;
+    margin-bottom: .4em;
+    text-shadow: 4px 4px 5px rgb(0, 0, 0, .8);
+}
+
+.text{
+    font-family: inherit;
+    font-size: 15px;
+    padding: .8em 16px;
+    outline: none;
+    border: none;
+    border: 1px solid rgb(120, 120, 231);
+    border-radius: .5em;
+}
+
+.text:hover {
+    background-color: rgb(228, 228, 255);
+}
+
+.text--message{
+    resize: none;
+    padding: 1.8em 1em;
+    margin-bottom: .5em;
+}
+
+.button{
+    font-family: inherit;
+    background-color: #83d8ff;
+    color: white;
+    border: none;
+    font-weight: 300;
+    padding: .7em 0;
+    border-radius: .7em;
+    cursor: pointer;
+    text-shadow: 4px 4px 5px rgb(120, 120, 231);
+}
+
+.button:hover{
+    background-color: #52c7fd;
+}

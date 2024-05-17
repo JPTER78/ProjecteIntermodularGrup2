@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log</title>
+    <link rel="stylesheet" href="Log.css"/>
+	<script type="text/javascript" src="Log.js"></script>
+</head>
+<body>
+    <form method="post" class="form" name="form">
+        <div class="container">
+            <h2 id="Titulo">Log</h2>
+            <select name="Log" id="Log" onclick="Visualizar()">
+                <option name="Usuari" value="User" class="option" hidden>Selecione un Log</option>
+                <option name="Usuari" value="User" class="option">Usuari</option>
+                <option name="Pelicula" value="Pelicula" class="option">Pelicula</option>
+                <option name="Serie" value="Serie" class="option">Serie</option>
+            </select>
+
+            <!-- Mostrar tabla con el log marcado -->
+            <div id="div"></div>
+        </div>
+    </form>  
+</body>
+</html>
